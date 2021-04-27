@@ -31,9 +31,28 @@ try:
 except:
     from instKeithley2400 import Keithley2400
 
+try:
+    from . import ui
+except:
+    from ui import UI
+
+device = None
+
+def onButtonA():
+    if device is not None:
+        line = device.action()
+        print(line)
+    
+def onButtonB():
+    print("Button B!")
+    
 if __name__ == '__main__':
-    device = Keithley2400("ws://wifi-uart.crozet.lan:8000")
-    device.setup()
-    line = device.action()
-    print(line)
+    try:
+        device = Keithley2400("ws://wifi-uart.crozet.lan:8000")
+        device.setup()
+        bonnet = UI(onButtonA=onButtonA, onButtonB=onButtonB)
+        bonnet.loop()
+
+    except (KeyboardInterrupt, SystemExit):
+        exit(2)
 
