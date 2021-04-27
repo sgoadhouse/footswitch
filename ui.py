@@ -144,6 +144,8 @@ class UI(object):
             )  # Up
             if self.button_U.fell: # up pressed since last update
                 if self.onButtonU is not None:
+                    # Display the Image
+                    self.disp.image(self.image)
                     self.onButtonU()
 
             self.button_D.update()
@@ -155,6 +157,8 @@ class UI(object):
             )  # down
             if self.button_D.fell: # D pressed since last update
                 if self.onButtonD is not None:
+                    # Display the Image
+                    self.disp.image(self.image)
                     self.onButtonD()
 
             self.button_L.update()
@@ -166,6 +170,8 @@ class UI(object):
             )  # left
             if self.button_L.fell: # L pressed since last update
                 if self.onButtonL is not None:
+                    # Display the Image
+                    self.disp.image(self.image)
                     self.onButtonL()
 
             self.button_R.update()
@@ -177,6 +183,8 @@ class UI(object):
             )  # right
             if self.button_R.fell: # R pressed since last update
                 if self.onButtonR is not None:
+                    # Display the Image
+                    self.disp.image(self.image)
                     self.onButtonR()
 
             self.button_C.update()
@@ -186,6 +194,8 @@ class UI(object):
             self.draw.rectangle((40, 44, 80, 80), outline=self.button_outline, fill=center_fill)  # center
             if self.button_C.fell: # C pressed since last update
                 if self.onButtonC is not None:
+                    # Display the Image
+                    self.disp.image(self.image)
                     self.onButtonC()
 
             self.button_A.update()
@@ -195,6 +205,8 @@ class UI(object):
             self.draw.ellipse((140, 80, 180, 120), outline=self.button_outline, fill=A_fill)  # A button
             if self.button_A.fell: # A pressed since last update
                 if self.onButtonA is not None:
+                    # Display the Image
+                    self.disp.image(self.image)
                     self.onButtonA()
             
             self.button_B.update()
@@ -204,6 +216,8 @@ class UI(object):
             self.draw.ellipse((190, 40, 230, 80), outline=self.button_outline, fill=B_fill)  # B button
             if self.button_B.fell: # B pressed since last update
                 if self.onButtonB is not None:
+                    # Display the Image
+                    self.disp.image(self.image)
                     self.onButtonB()
 
             # make a random color and print text

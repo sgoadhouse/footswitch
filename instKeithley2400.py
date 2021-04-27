@@ -31,6 +31,7 @@ try:
 except:
     from instrument import Instrument
 
+# from: https://pypi.org/project/websocket-client/
 from websocket import create_connection
 import socket
     
@@ -47,11 +48,11 @@ class Keithley2400(Instrument):
         self._NSAMPLES=10
 
         #  single channel
-        #  wait 0.25 second between commands
+        #  wait 0.3 second between commands
         #  cmd_prefix is ':'
         #  read_termination is \n
         #  write_termination is \n
-        super(Keithley2400, self).__init__(resource, chan=1, wait=0.25,
+        super(Keithley2400, self).__init__(resource, chan=1, wait=0.3,
                                            cmd_prefix = ':',
                                            read_termination = '\n',
                                            write_termination = '\n')
@@ -82,7 +83,7 @@ class Keithley2400(Instrument):
         self.write("TRIG:COUN 1") ## set Trigger Count = 1
         self.write("TRIG:SOUR IMM") ## set Trigger Source = Immediate
         self.write("SENS:AVER:TCON REP") ## Repeating Filter mode
-        self.write("SENS:AVER:COUNT {}\n".format(self._NSAMPLES)) ## Average over NSAMPLES readings
+        self.write("SENS:AVER:COUNT {}".format(self._NSAMPLES)) ## Average over NSAMPLES readings
         ##@@@self.write("SENS:AVER ON") ## Enable Filter mode - should see FILT on display
         self.write("SENS:AVER OFF") ## Disable Filter mode - let user manually enable if desired
         self.write("SENS:CURR:RANG:AUTO ON") ## Enable Auto Range Mode for Current Measurement 
@@ -99,12 +100,13 @@ class Keithley2400(Instrument):
         #    self.write("SOUR:VOLT:RANG:AUTO ON")
 
         ## Put instrument back in front panel input mode
-        self.write("SYSTem:LOCal")
+        self.write("SYST:LOC")
 
         self.close()
 
     def _action(self):
         self.open()
         result = self.query("READ?") ## read present value
+        self.write("SYST:LOC")
         self.close()
         return result
